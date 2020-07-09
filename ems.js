@@ -21,16 +21,6 @@ connection.connect((err) => {
   init();
 });
 
-// Inquirer Prompts
-// what would you like to do?
-// View All Employees
-// View All Employees by Dept
-// View All Employees by Manager
-// Add Employee
-// Remove Employee
-// Update Employee Role
-// Update Employee Manager
-
 function init() {
   inquirer
     .prompt([
@@ -81,8 +71,12 @@ function init() {
 }
 
 function empViewAll() {
-    console.log("View all Employees");
-    init();
+    sql_query = "SELECT * FROM employee;";
+    connection.query(sql_query, function(err, res) {
+        if(err) throw err;
+        console.table(res);
+        init();
+    });
 };
 
 function empViewDept() {
